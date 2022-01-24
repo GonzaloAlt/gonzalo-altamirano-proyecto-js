@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,mBAAmB,CAAC;EAClB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;CAIvB;;AAND,AAGE,mBAHiB,CAGjB,4BAA4B,CAAC;EAC3B,OAAO,EAAE,IAAI;CACd",
+    "sources": [
+        "styles.scss",
+        "scss/_exchangeCard.scss"
+    ],
+    "names": [],
+    "file": "styles.css"
+}

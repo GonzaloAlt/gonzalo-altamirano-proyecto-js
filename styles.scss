@@ -1,0 +1,9 @@
+@import "./scss/exchangeCard";
+
+.exchange_container {
+  display: flex;
+  flex-direction: column;
+  #exchange_container__options {
+    display: none;
+  }
+}
