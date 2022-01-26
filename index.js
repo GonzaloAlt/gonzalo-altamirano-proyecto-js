@@ -1,10 +1,15 @@
 /* DOCUMENTACIÓN API https://github.com/Castrogiovanni20/api-dolar-argentina */
+
+/* PARA HACER
+  1. Crear dinamicamente cada cotización en el DOM.
+  2. Crear una función que reciba como parametros funcion para traer datos, 
+  funcion para mostrar en DOM y el nodo al que va a appendear
+*/
 const API = "https://apiarg.herokuapp.com/api/";
 const defaultSearches = [
   { dolaroficial: "Dolar oficial" },
   { dolarBlue: "Dolar blue" },
   { contadoliqui: "Contado con liqui" },
-  { dolarturista: "Dolar turista" },
   { dolarbolsa: "Dolar bolsa" },
 ];
 
@@ -24,14 +29,16 @@ const bankList = [
   { chaco: "Nuevo Banco del Chaco" },
   { pampa: "Banco de La Pampa" },
 ];
-let prueba = [];
+const dolarTax = 1.65;
+const riesgoPais = "riesgopais";
 
 let $selectBanks = document.getElementById("select_banks");
 let $containerOpt = document.getElementById("exchange_container__options");
-let $exchangeContainer = document.getElementsByClassName("exchange_container");
 
-const dolarTax = 1.65;
-const riesgoPais = "riesgopais";
+$selectBanks.addEventListener("click", () => {
+  $containerOpt.style.display = "block";
+});
+
 class Bank {
   constructor(name, buy, sell) {
     this.name = name;
@@ -43,30 +50,31 @@ class Bank {
     this.sell = this.sell * dolarTax;
   }
 }
-$selectBanks.addEventListener("click", () => {
-  $containerOpt.style.display = "block";
-});
+/*------------------------------------------------- FUNCIONES------------------------------------------- */
 
-/*Llamado a la API*/
-let getExchangeData = async (endpoint) => {
-  response = await fetch(`${API}${endpoint}`);
+/* Llamado a la API */
+let getExchangeData = async (currency) => {
+  response = await fetch(`${API}${currency}`);
   const data = await response.json();
+  // console.log(data);
   return data;
 };
-
-/*Pide info a getExchangeData para guardar un array de objetos*/
-let getSearch = (searches) => {
-  searches.forEach(async (e) => {
-    const response = await getExchangeData(Object.keys(e));
-    prueba.push(
-      new Bank(Object.values(e).toString(), response.compra, response.venta)
+let getSearch = async (searches) => {
+  let bankInfoList = [];
+  await searches.reduce(async (pv, cv) => {
+    bankInfoList = await pv;
+    response = await getExchangeData(Object.keys(cv));
+    bankInfoList.push(
+      new Bank(Object.values(cv).toString(), response.compra, response.venta)
     );
-  });
-  console.log(prueba);
-  return prueba;
+    return bankInfoList;
+  }, Promise.resolve([]));
+  // console.log(bankInfoList);
+  return bankInfoList;
 };
+getSearch(defaultSearches);
 
-getSearch(bankList);
+//
 /* Crea una lista de inputs con todos los bancos disponibles */
 let createBankCheckBox = () => {
   for (const iterator of bankList) {
@@ -79,10 +87,10 @@ let createBankCheckBox = () => {
     $containerOpt.appendChild(bankDiv);
   }
 };
-
 createBankCheckBox();
-/* Valida los bancos seleccionados */
-let comprobar = () => {
+//
+/* Valida los bancos seleccionados, devuelve [{}] */
+let check = () => {
   let bankSelection = [];
   $arr = document.querySelectorAll(".bank");
   for (let i = 0; i < $arr.length; i++) {
@@ -93,43 +101,66 @@ let comprobar = () => {
   console.log(bankSelection);
   return bankSelection;
 };
+//
+let renderDataDolar = async (search) => {
+  response = getSearch(search);
+  data = await response;
+  console.log(data);
 
-// const resultado = bankList.find((e) => Object.keys(e) == "bbva");
+  const bankDiv = document.createElement("DIV");
+  document.getElementById("exchange_container__options").appendChild(bankDiv);
+  for (const key in data) {
+    if (Object.hasOwnProperty.call(data, key)) {
+      const element = data[key];
+      console.log(element.name);
+    }
+  }
+  // for (let index = 0; index < data.length; index++) {
+  //   const element = data[index];
+  //   console.log(element);
+  // }
 
-// console.log(resultado);
+  bankDiv.innerHTML = `<div>
+    <h2>asd</h2>
+    <h3>Compra: asd</h3>
+    <h3>Venta: asd</h3>
+  </div>`;
+};
 
+renderDataDolar(defaultSearches);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // let getSearch = async (searches) => {
-//   for (const search in searches) {
-//     const response = await getExchangeData(search);
-//     searches[search].compra = response.compra;
-//     searches[search].venta = response.venta;
-//   }
-//   console.log(searches);
-// };
+//   let bankInfoList = [];
+// searches.forEach(async (e) => {
+//   response = await getExchangeData(Object.keys(e));
 
-// let getSearch = async (searches) => {
-//   for (const search in searches) {
-//     const response = await getExchangeData(search);
-//     prueba.push(
-//       new Bank(searches[search].name, response.compra, response.venta)
-//     );
-//   }
-//   console.log(prueba);
-// };
-
-// const banks = {
-//   bbva: { name: "Banco BBVA" },
-//   piano: { name: "Banco Piano" },
-//   hipotecario: { name: "Banco Hipotecario" },
-//   galicia: { name: "Banco Galicia" },
-//   santander: { name: "Banco Santander" },
-//   ciudad: { name: "Banco Ciudad" },
-//   supervielle: { name: "Banco Supervielle" },
-//   patagonia: { name: "Banco Patagonia" },
-//   comafi: { name: "Banco Comafi" },
-//   nacion: { name: "Banco Nación" },
-//   bind: { name: "Banco Industrial" },
-//   bancor: { name: "Banco de Córdoba" },
-//   chaco: { name: "Nuevo Banco del Chaco" },
-//   pampa: { name: "Banco de La Pampa" },
+//   bankInfoList.push(
+//     new Bank(Object.values(await e).toString(), response.compra, response.venta)
+//   );
+// });
+// console.log(bankInfoList);
+// return bankInfoList;
 // };
