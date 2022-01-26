@@ -38,6 +38,10 @@ let $containerOpt = document.getElementById("exchange_container__options");
 $selectBanks.addEventListener("click", () => {
   $containerOpt.style.display = "block";
 });
+document.getElementById("comprobar").addEventListener("click", (event) => {
+  console.log("asd");
+  if (event.detail < 1) check();
+});
 
 class Bank {
   constructor(name, buy, sell) {
@@ -91,6 +95,7 @@ createBankCheckBox();
 //
 /* Valida los bancos seleccionados, devuelve [{}] */
 let check = () => {
+  clearContainer("class", "prueba2");
   let bankSelection = [];
   $arr = document.querySelectorAll(".bank");
   for (let i = 0; i < $arr.length; i++) {
@@ -98,7 +103,7 @@ let check = () => {
     const result = bankList.find((e) => Object.keys(e) == element.id);
     if (element.checked) bankSelection.push(result);
   }
-  console.log(bankSelection);
+
   return renderDataDolar(bankSelection, "class", "prueba2");
 };
 //
@@ -126,6 +131,12 @@ let renderDataDolar = async (search, selectorType, fatherAppend) => {
 };
 
 renderDataDolar(defaultSearches, "id", "prueba1");
+
+const clearContainer = (selectorType, fatherAppend) => {
+  selectorType == "id".toLocaleLowerCase()
+    ? (document.getElementById(`${fatherAppend}`).innerHTML = "")
+    : (document.getElementsByClassName(`${fatherAppend}`)[0].innerHTML = "");
+};
 // renderDataDolar(bankList, "class", "prueba2");
 
 //
