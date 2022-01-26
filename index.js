@@ -38,9 +38,8 @@ let $containerOpt = document.getElementById("exchange_container__options");
 $selectBanks.addEventListener("click", () => {
   $containerOpt.style.display = "block";
 });
-document.getElementById("comprobar").addEventListener("click", (event) => {
-  console.log("asd");
-  if (event.detail < 1) check();
+document.getElementById("comprobar").addEventListener("click", () => {
+  check();
 });
 
 class Bank {
