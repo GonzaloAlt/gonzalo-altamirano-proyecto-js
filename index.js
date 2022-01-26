@@ -99,35 +99,34 @@ let check = () => {
     if (element.checked) bankSelection.push(result);
   }
   console.log(bankSelection);
-  return bankSelection;
+  return renderDataDolar(bankSelection, "class", "prueba2");
 };
 //
-let renderDataDolar = async (search) => {
+let renderDataDolar = async (search, selectorType, fatherAppend) => {
   response = getSearch(search);
   data = await response;
   console.log(data);
-
   const bankDiv = document.createElement("DIV");
-  document.getElementById("exchange_container__options").appendChild(bankDiv);
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
-      const element = data[key];
-      console.log(element.name);
+      const currency = data[key];
+      const bankH2 = document.createElement("H2");
+      bankH2.textContent = currency.name;
+      const bankH3 = document.createElement("H3");
+      bankH3.textContent = `Compra: ${currency.buy}|| Venta: ${currency.sell}`;
+      bankDiv.appendChild(bankH2);
+      bankDiv.appendChild(bankH3);
     }
   }
-  // for (let index = 0; index < data.length; index++) {
-  //   const element = data[index];
-  //   console.log(element);
-  // }
-
-  bankDiv.innerHTML = `<div>
-    <h2>asd</h2>
-    <h3>Compra: asd</h3>
-    <h3>Venta: asd</h3>
-  </div>`;
+  selectorType == "id".toLocaleLowerCase()
+    ? document.getElementById(`${fatherAppend}`).appendChild(bankDiv)
+    : document
+        .getElementsByClassName(`${fatherAppend}`)[0]
+        .appendChild(bankDiv);
 };
 
-renderDataDolar(defaultSearches);
+renderDataDolar(defaultSearches, "id", "prueba1");
+// renderDataDolar(bankList, "class", "prueba2");
 
 //
 //
