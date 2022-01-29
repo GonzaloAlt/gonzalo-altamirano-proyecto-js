@@ -45,13 +45,23 @@
       </div>
     </div>
   </nav>
+  <div>
+    <label for="">Dinero en cuenta pesos $</label>
+    <input type="number" name="" id="pesos-account" disabled />
+    <button id="generate-btn">Generar dinero</button>
+    <label for="">Dinero en cuenta dolares USD</label>
+    <input type="number" name="" id="dollar-account" disabled value="0" />
+  </div>
+  <div>
+    <button id="localStorage-btn">Borrar localStorage</button>
+  </div>
 
   <section class="exchange_container">
     <div>
       <button id="select_banks">SELECCIONAR BANCOS</button>
     </div>
     <div id="exchange_container__options">
-      <button id="comprobar" onclick="">comprobar</button>
+      <button id="search-btn">Buscar cotizaciones</button>
     </div>
     <div id="prueba1" style="background-color: red"></div>
     <div class="prueba2" style="background-color: green"></div>
@@ -69,5 +79,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="index.js"></script>
+    <script src="./js/currency.js"></script>
+    <script src="./js/dollarBuySell.js"></script>
   </body>
 </html>
