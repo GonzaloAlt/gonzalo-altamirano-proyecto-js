@@ -45,6 +45,7 @@
       </div>
     </div>
   </nav>
+
   <div>
     <label for="">Dinero en cuenta pesos $</label>
     <input type="number" name="" id="pesos-account" disabled />
@@ -55,6 +56,32 @@
   <div>
     <button id="localStorage-btn">Borrar localStorage</button>
   </div>
+  <br />
+  <br />
+  <br />
+
+  <div>
+    <label for="">Cantidad de dolares</label>
+    <input
+      type="radio"
+      name="options"
+      id="dollar-amount"
+      class="buy-amount"
+      checked="checked"
+    /><br />
+    <label for="">Cantidad en pesos</label>
+    <input
+      type="radio"
+      name="options"
+      id="pesos-amount"
+      class="buy-amount"
+    /><br />
+    <input type="number" name="" id="exchange" />
+    <button onclick="checkCurrency()">Probar</button>
+  </div>
+  <br />
+  <br />
+  <br />
 
   <section class="exchange_container">
     <div>
@@ -79,7 +106,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="index.js"></script>
-    <script src="./js/currency.js"></script>
+    <!-- <script src="./js/currency.js"></script> -->
     <script src="./js/dollarBuySell.js"></script>
   </body>
 </html>

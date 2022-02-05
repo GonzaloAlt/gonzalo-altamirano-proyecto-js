@@ -6,7 +6,7 @@ $pesosAccount.value = localStorage.getItem("dinero en cuenta");
 $generateBtn.style.display = localStorage.getItem("boton oculto");
 
 let generateMoney = () => {
-  return Math.round(Math.random() * (200000000 - 1000000) + 10000000) / 100;
+  return Math.round(Math.random() * (20000000 - 10000) + 10000) / 100;
 };
 
 $generateBtn.addEventListener("click", () => {

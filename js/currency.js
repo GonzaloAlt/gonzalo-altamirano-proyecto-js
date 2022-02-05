@@ -44,7 +44,7 @@ $selectBanks.addEventListener("click", () => {
   $containerOpt.style.display = "block";
 });
 document.getElementById("search-btn").addEventListener("click", () => {
-  check();
+  checkBanks();
 });
 
 class Bank {
@@ -98,7 +98,7 @@ createBankCheckBox();
 //
 //
 /* Valida los bancos seleccionados, devuelve [{}] y llama a renderDataDolar() */
-let check = () => {
+let checkBanks = () => {
   clearContainer("class", "prueba2");
   let bankSelection = [];
   $arr = document.querySelectorAll(".bank");
