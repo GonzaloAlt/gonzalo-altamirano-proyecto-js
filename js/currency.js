@@ -1,15 +1,5 @@
 /* DOCUMENTACIÓN API https://github.com/Castrogiovanni20/api-dolar-argentina */
 
-/* ------------------------------PARA HACER-------------
-
-  A.API DOLAR
-    1.Filtrar cotizaciones de mayor a menor.
-    2.Toggle de ocultar o mostrar seleccionador de cotizaciones.
-    3.Arreglar doble click de comprobar (está concatenando las búsquedas si se clickea muy rapido, 
-      no toma el clearContainer()).
-      
-    
-*/
 const API = "https://apiarg.herokuapp.com/api/";
 const defaultSearches = [
   { dolaroficial: "Dolar oficial" },
@@ -39,11 +29,17 @@ const riesgoPais = "riesgopais";
 
 let $selectBanks = document.getElementById("select_banks");
 let $containerOpt = document.getElementById("exchange_container__options");
-
+const $searchRates = document.getElementById("search-btn");
 $selectBanks.addEventListener("click", () => {
-  $containerOpt.style.display = "block";
+  if ($containerOpt.style.display == "none") {
+    $containerOpt.style.display = "flex";
+    $searchRates.style.display = "flex";
+  } else {
+    $containerOpt.style.display = "none";
+    $searchRates.style.display = "none";
+  }
 });
-document.getElementById("search-btn").addEventListener("click", () => {
+$searchRates.addEventListener("click", () => {
   checkBanks();
 });
 
@@ -83,13 +79,14 @@ let getSearch = async (searches) => {
 //
 /* Crea una lista de inputs con todos los bancos disponibles */
 let createBankCheckBox = () => {
-  for (const iterator of bankList) {
+  for (const bank of bankList) {
     const bankDiv = document.createElement("DIV");
     bankDiv.innerHTML = `<label for="${Object.keys(
-      iterator
+      bank
     )}"><input type="checkbox" id="${Object.keys(
-      iterator
-    )}" class="bank"/>${Object.values(iterator)}</label>`;
+      bank
+    )}" class="bank"/>${Object.values(bank)}</label>`;
+    bankDiv.className = "bank";
     $containerOpt.appendChild(bankDiv);
   }
 };
@@ -99,7 +96,7 @@ createBankCheckBox();
 //
 /* Valida los bancos seleccionados, devuelve [{}] y llama a renderDataDolar() */
 let checkBanks = () => {
-  clearContainer("class", "prueba2");
+  clearContainer("class", "exchange_container__banklist_searches");
   let bankSelection = [];
   $arr = document.querySelectorAll(".bank");
   for (let i = 0; i < $arr.length; i++) {
@@ -108,7 +105,11 @@ let checkBanks = () => {
     if (element.checked) bankSelection.push(result);
   }
 
-  return renderDataDolar(bankSelection, "class", "prueba2");
+  return renderDataDolar(
+    bankSelection,
+    "class",
+    "exchange_container__banklist_searches"
+  );
 };
 //
 //
@@ -118,16 +119,20 @@ let renderDataDolar = async (search, selectorType, fatherAppend) => {
   response = getSearch(search);
   data = await response;
   // console.log(data);
-  const bankDiv = document.createElement("DIV");
+  const bankDiv = document.createElement("ul");
+  bankDiv.className = "bank-div";
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
+      const bankCard = document.createElement("li");
+      bankCard.className = "bank-card";
       const currency = data[key];
       const bankH2 = document.createElement("H2");
       bankH2.textContent = currency.name;
       const bankH3 = document.createElement("H3");
       bankH3.textContent = `Compra: ${currency.buy}|| Venta: ${currency.sell}`;
-      bankDiv.appendChild(bankH2);
-      bankDiv.appendChild(bankH3);
+      bankDiv.appendChild(bankCard);
+      bankCard.appendChild(bankH2);
+      bankCard.appendChild(bankH3);
     }
   }
   selectorType == "id".toLocaleLowerCase()
@@ -137,7 +142,7 @@ let renderDataDolar = async (search, selectorType, fatherAppend) => {
         .appendChild(bankDiv);
 };
 
-renderDataDolar(defaultSearches, "id", "prueba1");
+renderDataDolar(defaultSearches, "id", "exchange_container__default_searches");
 
 /* Limpia el contenedor para que las busquedas no se concatenen una detrás de otra infinitamente */
 const clearContainer = (selectorType, fatherAppend) => {

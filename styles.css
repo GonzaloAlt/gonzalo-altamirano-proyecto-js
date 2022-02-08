@@ -1,3 +1,201 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+h2,
+h3 {
+  font-family: "Oswald", sans-serif;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 12px;
+}
+
+h4 {
+  font-size: 10px;
+  color: red;
+}
+
+.bank-div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 5%;
+}
+
+.bank-div .bank-card {
+  width: 50%;
+}
+
+body {
+  background-color: #f0f0f0;
+  min-width: 340px;
+}
+
+input {
+  text-align: center;
+}
+
+label {
+  font-family: "Roboto Mono", monospace;
+  text-align: center;
+}
+
+nav {
+  background-color: #d51926;
+}
+
+nav button {
+  border: none !important;
+}
+
+section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.money-container {
+  max-width: 80%;
+  height: 100px;
+  padding: 0% 10%;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 15px;
+  gap: 8px;
+}
+
+.asdasd {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 25px 15%;
+}
+
+.buy_dollars_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px;
+  gap: 20px;
+}
+
+.buy_dollars_container .currency_type {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+button {
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1% 1%;
+  color: black;
+  margin: 10px 0px;
+}
+
+button:active {
+  background-color: #f0f0f0;
+  -webkit-box-shadow: 1px 1px 1px #d51926;
+          box-shadow: 1px 1px 1px #d51926;
+  color: #ffffff;
+}
+
+button:hover {
+  background-color: #f0e76a;
+}
+
 .exchange_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6,9 +204,41 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background-color: white;
 }
 
-.exchange_container #exchange_container__options {
+#exchange_container__options {
   display: none;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px 16%;
+  text-align: left;
+}
+
+#search-btn {
+  display: none;
+}
+
+.exchange_container__banklist_searches {
+  background-color: white;
+}
+
+@media (min-width: 768px) {
+  .exchange_container__banklist_searches .bank-div {
+    width: 100%;
+  }
+  .exchange_container__banklist_searches .bank-div .bank-card {
+    width: 20%;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

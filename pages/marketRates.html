@@ -19,7 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;500;600;700&family=Roboto+Mono:wght@100;200;300;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
     <title>Document</title>
   </head>
   <nav class="navbar navbar-expand-lg navbar-dark">
@@ -39,13 +39,15 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" aria-current="page" href="../index.html"
+              >Home</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./pages/buyDollars.html">Compra U$S</a>
+            <a class="nav-link" href="../pages/buyDollars.html">Compra U$S</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./pages/marketRates.html">Cotizaciones</a>
+            <a class="nav-link active" href="#">Cotizaciones</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
@@ -54,54 +56,19 @@
       </div>
     </div>
   </nav>
+
   <section class="exchange_container">
     <div id="exchange_container__default_searches"></div>
   </section>
   <section>
+    <h2>Buscador de cotizaciones</h2>
     <div>
-      <button id="select_banks" style="display: none">
-        SELECCIONAR BANCOS
-      </button>
+      <button id="select_banks">SELECCIONAR BANCOS</button>
     </div>
-    <div id="exchange_container__options"></div>
+    <div id="exchange_container__options" style="display: none"></div>
     <button id="search-btn">Buscar cotizaciones</button>
     <div class="exchange_container__banklist_searches"></div>
   </section>
-  <section>
-    <h2>Estado de cuenta</h2>
-    <div class="money-container">
-      <label for="">Cuenta pesos $</label>
-      <input type="number" name="" id="pesos-account" disabled />
-    </div>
-    <div class="money-container">
-      <label for="">Cuenta dolares USD</label>
-      <input type="number" name="" id="dollar-account" disabled />
-    </div>
-    <div class="btn-container">
-      <button id="generate-btn">Generar dinero</button>
-      <button id="localStorage-btn">Borrar localStorage</button>
-    </div>
-  </section>
-
-  <!-- <div>
-    <label for="">Cantidad de dolares</label>
-    <input
-      type="radio"
-      name="options"
-      id="dollar-amount"
-      class="buy-amount"
-      checked="checked"
-    /><br />
-    <label for="">Cantidad en pesos</label>
-    <input
-      type="radio"
-      name="options"
-      id="pesos-amount"
-      class="buy-amount"
-    /><br />
-    <input type="number" name="" id="exchange" />
-    <button onclick="checkCurrency()">Probar</button>
-  </div> -->
 
   <body>
     <script
@@ -114,9 +81,6 @@
       integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
       crossorigin="anonymous"
     ></script>
-    <script src="index.js"></script>
-    <script src="./js/currency.js"></script>
-    <!-- <script type="module" src="./js/prueba.js"></script> -->
-    <script src="./js/dollarBuy.js"></script>
+    <script src="../js/currency.js"></script>
   </body>
 </html>
