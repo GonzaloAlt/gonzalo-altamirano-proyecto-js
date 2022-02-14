@@ -20,90 +20,79 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <title>Document</title>
+    <title>Simulador Home</title>
   </head>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Simulador</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./pages/buyDollars.html">Compra U$S</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./pages/marketRates.html">Cotizaciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <section class="exchange_container">
-    <div id="exchange_container__default_searches"></div>
-  </section>
-  <section>
-    <div>
-      <button id="select_banks" style="display: none">
-        SELECCIONAR BANCOS
-      </button>
-    </div>
-    <div id="exchange_container__options"></div>
-    <button id="search-btn">Buscar cotizaciones</button>
-    <div class="exchange_container__banklist_searches"></div>
-  </section>
-  <section>
-    <h2>Estado de cuenta</h2>
-    <div class="money-container">
-      <label for="">Cuenta pesos $</label>
-      <input type="number" name="" id="pesos-account" disabled />
-    </div>
-    <div class="money-container">
-      <label for="">Cuenta dolares USD</label>
-      <input type="number" name="" id="dollar-account" disabled />
-    </div>
-    <div class="btn-container">
-      <button id="generate-btn">Generar dinero</button>
-      <button id="localStorage-btn">Borrar localStorage</button>
-    </div>
-  </section>
-
-  <!-- <div>
-    <label for="">Cantidad de dolares</label>
-    <input
-      type="radio"
-      name="options"
-      id="dollar-amount"
-      class="buy-amount"
-      checked="checked"
-    /><br />
-    <label for="">Cantidad en pesos</label>
-    <input
-      type="radio"
-      name="options"
-      id="pesos-amount"
-      class="buy-amount"
-    /><br />
-    <input type="number" name="" id="exchange" />
-    <button onclick="checkCurrency()">Probar</button>
-  </div> -->
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Simulador</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/buyDollars.html">Compra U$S</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/sellDollars.html">Vender U$S</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/marketRates.html"
+                >Cotizaciones</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="exchange_container">
+      <div id="exchange_container__default_searches"></div>
+    </section>
+    <section>
+      <div>
+        <button id="select_banks" style="display: none">
+          SELECCIONAR BANCOS
+        </button>
+      </div>
+      <div id="exchange_container__options"></div>
+      <button id="search-btn">Buscar cotizaciones</button>
+      <div class="exchange_container__banklist_searches"></div>
+    </section>
+    <section>
+      <h2>Estado de cuenta</h2>
+      <div class="money-container">
+        <label for="">Cuenta pesos $</label>
+        <input type="number" name="" id="pesos-account" disabled />
+      </div>
+      <div class="money-container">
+        <label for="">Cuenta dolares USD</label>
+        <input type="number" name="" id="dollar-account" disabled />
+      </div>
+      <div class="btn-container">
+        <button id="generate-btn">Generar dinero</button>
+        <button id="localStorage-btn">Borrar localStorage</button>
+      </div>
+    </section>
+    <section class="see_movement__container">
+      <h2>Ver últimos 10 movimientos</h2>
+      <div id="see_movement__btn">
+        <img src="./imgs/downArrow.png" alt="boton flecha" />
+      </div>
+      <div id="see_movements__box"></div>
+    </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
       integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -116,7 +105,8 @@
     ></script>
     <script src="index.js"></script>
     <script src="./js/currency.js"></script>
-    <!-- <script type="module" src="./js/prueba.js"></script> -->
+
     <script src="./js/dollarBuy.js"></script>
+    <script src="./js/dollarSell.js"></script>
   </body>
 </html>

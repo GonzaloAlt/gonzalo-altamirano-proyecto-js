@@ -1,5 +1,3 @@
-@import "./scss/exchangeCard";
-
 * {
   padding: 0;
   margin: 0;
@@ -103,7 +101,7 @@ section {
   margin-top: 15px;
   gap: 8px;
 }
-.asdasd {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,7 +158,59 @@ button {
       // justify-content: space-evenly;
       .bank-card {
         width: 20%;
+        border-bottom: 1px dashed black;
       }
+    }
+  }
+}
+.see_movement__container {
+  background-color: white;
+  padding: 50px 1%;
+  .see_movements__box__info {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    border: 1px solid rgb(199, 199, 199);
+    padding: 5px 10px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 300;
+      span {
+        font-weight: 100;
+      }
+    }
+  }
+  #see_movement__btn {
+    border: none;
+    width: 30px;
+    padding: 0px;
+    margin: 0px;
+    img {
+      width: 100%;
+      filter: invert(33%) sepia(92%) saturate(5873%) hue-rotate(344deg)
+        brightness(82%) contrast(104%);
+    }
+  }
+}
+#charges {
+  min-width: 87%;
+  position: absolute;
+  transform: translate(0px, -346px);
+  background-color: #fff1f1;
+  .generated_charges {
+    padding: 5% 10%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px -8px black;
+    h3 {
+      font-size: 18px;
+      font-weight: 300;
+      span {
+        font-weight: 100;
+      }
+    }
+    button {
+      margin: 5px 5px;
     }
   }
 }

@@ -46,10 +46,10 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Compra U$S</a>
+              <a class="nav-link" href="./buyDollars.html">Compra U$S</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./sellDollars.html">Vender U$S</a>
+              <a class="nav-link active" href="#">Vender U$S</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./marketRates.html">Cotizaciones</a>
@@ -73,7 +73,7 @@
     </section>
 
     <section>
-      <h2>Compra de dolares</h2>
+      <h2>Venta de dolares</h2>
       <div class="money-container">
         <label for="">Cuenta pesos $</label>
         <input type="number" name="" id="pesos-account" disabled />
@@ -107,7 +107,7 @@
       </div>
       <input type="number" name="" id="exchange" />
       <div id="alert_exchange"></div>
-      <button onclick="checkCurrency(buyDollars)">Comprar</button>
+      <button onclick="checkCurrency(sellDollars)">Vender</button>
     </div>
 
     <section>
@@ -127,5 +127,6 @@
     <script src="../index.js"></script>
     <script src="../js/currency.js"></script>
     <script src="../js/dollarBuy.js"></script>
+    <script src="../js/dollarSell.js"></script>
   </body>
 </html>

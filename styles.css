@@ -123,7 +123,7 @@ section {
   gap: 8px;
 }
 
-.asdasd {
+.container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -239,6 +239,75 @@ button:hover {
   }
   .exchange_container__banklist_searches .bank-div .bank-card {
     width: 20%;
+    border-bottom: 1px dashed black;
   }
+}
+
+.see_movement__container {
+  background-color: white;
+  padding: 50px 1%;
+}
+
+.see_movement__container .see_movements__box__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 8px;
+  border: 1px solid #c7c7c7;
+  padding: 5px 10px;
+}
+
+.see_movement__container .see_movements__box__info h3 {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.see_movement__container .see_movements__box__info h3 span {
+  font-weight: 100;
+}
+
+.see_movement__container #see_movement__btn {
+  border: none;
+  width: 30px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.see_movement__container #see_movement__btn img {
+  width: 100%;
+  -webkit-filter: invert(33%) sepia(92%) saturate(5873%) hue-rotate(344deg) brightness(82%) contrast(104%);
+          filter: invert(33%) sepia(92%) saturate(5873%) hue-rotate(344deg) brightness(82%) contrast(104%);
+}
+
+#charges {
+  min-width: 87%;
+  position: absolute;
+  -webkit-transform: translate(0px, -346px);
+          transform: translate(0px, -346px);
+  background-color: #fff1f1;
+}
+
+#charges .generated_charges {
+  padding: 5% 10%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 30px -8px black;
+          box-shadow: 0px 0px 30px -8px black;
+}
+
+#charges .generated_charges h3 {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+#charges .generated_charges h3 span {
+  font-weight: 100;
+}
+
+#charges .generated_charges button {
+  margin: 5px 5px;
 }
 /*# sourceMappingURL=styles.css.map */

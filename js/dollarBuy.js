@@ -16,16 +16,19 @@ const dollarTax = impuestoPais + impuestoGanancias;
 getOfficialDollar();
 
 /*-------------------------------------------------------------------- */
-const buyDollars = async (amount, currencyType) => {
+const buyDollars = (amount, currencyType) => {
   calculateAmount(amount, currencyType);
   alertExchange("");
-  if (accountValidations(pesosAmount, dollarAmount)) {
-    // showCharges(dollarAmount);
-    debitCreditCurrencys(pesosAmount, dollarAmount);
+  if (accountBuyValidations(pesosAmount, dollarAmount)) {
+    if (buyDollarsValidations(pesosAmount, dollarAmount)) {
+      showBuyCharges(dollarAmount);
+    }
+    // debitCreditCurrencys(pesosAmount, dollarAmount);
   } else return;
 };
-const accountValidations = (pesosAmount, dollarAmount) => {
-  if (checkAccountMoney(pesosAmount)) {
+/*-------------------------------------------------------------------- */
+const accountBuyValidations = (pesosAmount, dollarAmount) => {
+  if (checkPesosAccountMoney(pesosAmount)) {
   } else {
     alertExchange("*Excede la cantidad en su cuenta");
     return false;
@@ -35,6 +38,10 @@ const accountValidations = (pesosAmount, dollarAmount) => {
     alertExchange("*Ingrese monto mayor a 0");
     return false;
   }
+  return pesosAmount, dollarAmount;
+};
+
+const buyDollarsValidations = (pesosAmount, dollarAmount) => {
   if (limitBuyPerMonth(dollarAmount)) {
   } else {
     alertExchange("*Excede el límite mensual permitido");
@@ -47,6 +54,7 @@ const accountValidations = (pesosAmount, dollarAmount) => {
   }
   return pesosAmount, dollarAmount;
 };
+/*-------------------------------------------------------------------- */
 const alertExchange = (msg) => {
   const myAlert = document.getElementById("alert_exchange");
   myAlert.innerHTML = "";
@@ -75,11 +83,17 @@ const calculatePesosAmount = (amount) => {
     (impuestoGanancias + impuestoPais + officialDollarPrice.sell));
 };
 /*-------------------------------------------------------------------- */
-const checkAccountMoney = (amountReq) => {
+const checkPesosAccountMoney = (amountReq) => {
   return parseFloat(amountReq) <= $pesosAccount.value ? true : false;
 };
+const minAmount = (dollarAmount) => {
+  return dollarAmount > 0 ? true : false;
+};
+
+/*-------------------------------------------------------------------- */
 /*Funcion llamada desde el DOM- CAMBIAR!!!*/
-let checkCurrency = () => {
+
+let checkCurrency = (currencyFunction) => {
   let buyAmountSelection = [];
   $currencies = document.querySelectorAll(".buy-amount");
   for (let i = 0; i < $currencies.length; i++) {
@@ -87,31 +101,68 @@ let checkCurrency = () => {
     if ($currency.checked) buyAmountSelection.push($currency);
   }
   buyAmountSelection[0].id == "dollar-amount"
-    ? buyDollars(document.getElementById("exchange").value, "dollar")
-    : buyDollars(document.getElementById("exchange").value, "pesos");
+    ? currencyFunction(document.getElementById("exchange").value, "dollar")
+    : currencyFunction(document.getElementById("exchange").value, "pesos");
 };
 const limitAmount = (dollarAmount) => {
   return dollarAmount <= buyLimit ? true : false;
 };
-const minAmount = (dollarAmount) => {
-  return dollarAmount > 0 ? true : false;
-};
 /*-------------------------------------------------------------------- */
-const showCharges = (dollarAmount) => {
-  console.log(`Dolares: ${dollarAmount}`);
-  console.log(
-    `Pesos sin impuestos: ${officialDollarPrice.sell * dollarAmount}`
-  );
-  console.log(`Impuesto pais: ${impuestoPais * dollarAmount}`);
-  console.log(`Impuesto a las ganancias: ${impuestoGanancias * dollarAmount}`);
-  console.log(
-    `Total pesos a debitar:${
-      impuestoPais * dollarAmount +
-      officialDollarPrice.sell * dollarAmount +
-      impuestoGanancias * dollarAmount
-    } `
-  );
+
+const showBuyCharges = (dollarAmount) => {
+  const $charges = document.getElementById("charges");
+  $charges.innerHTML = "";
+  $newDiv = document.createElement("DIV");
+  $newDiv.className = "generated_charges";
+
+  $dollarH3 = document.createElement("H3");
+  $pesosH3 = document.createElement("H3");
+  $impPaisH3 = document.createElement("H3");
+  $impGananciasH3 = document.createElement("H3");
+  $totalDebitH3 = document.createElement("H3");
+
+  $buttonAccept = document.createElement("BUTTON");
+  $buttonDecline = document.createElement("BUTTON");
+
+  $dollarH3.innerHTML = `Dolares comprados: <span>$${dollarAmount}</span>`;
+  $pesosH3.innerHTML = `Pesos sin impuestos: <span>$${
+    officialDollarPrice.sell * dollarAmount
+  }</span>`;
+  $impPaisH3.innerHTML = `Impuesto pais: <span>$${
+    impuestoPais * dollarAmount
+  }</span>`;
+  $impGananciasH3.innerHTML = `Impuesto a las ganancias: <span>$${
+    impuestoGanancias * dollarAmount
+  }</span>`;
+  $totalDebitH3.innerHTML = `Total pesos debitados: <span>$${
+    impuestoPais * dollarAmount +
+    officialDollarPrice.sell * dollarAmount +
+    impuestoGanancias * dollarAmount
+  }</span>`;
+
+  $buttonAccept.innerHTML = `Confirmar`;
+
+  $buttonDecline.innerHTML = `Cancelar`;
+
+  $newDiv.appendChild($dollarH3);
+  $newDiv.appendChild($pesosH3);
+  $newDiv.appendChild($impPaisH3);
+  $newDiv.appendChild($impGananciasH3);
+  $newDiv.appendChild($totalDebitH3);
+  $newDiv.appendChild($buttonAccept);
+  $newDiv.appendChild($buttonDecline);
+  $charges.appendChild($newDiv);
+  $buttonAccept.addEventListener("click", () => {
+    $charges.innerHTML = "";
+    debitCreditCurrencys(parseFloat(-pesosAmount), dollarAmount);
+    return true;
+  });
+  $buttonDecline.addEventListener("click", () => {
+    $charges.innerHTML = "";
+    return false;
+  });
 };
+
 /*-------------------------------------------------------------------- */
 const setBuyDate = () => {
   let buyDate = new Date();
@@ -131,7 +182,8 @@ const limitBuyPerMonth = (dollarAmount) => {
   initialValue = parseFloat(dollarAmount);
   if (monthMovements) {
     for (const move of monthMovements) {
-      if (move.date == newDate) acumulator.push(move);
+      // if (move.date == newDate) acumulator.push(move);
+      if (filterMonth(move.date) == filterMonth(newDate)) acumulator.push(move);
     }
     let totalPurchased = acumulator
       .map((amount) => amount.dollar)
@@ -142,7 +194,11 @@ const limitBuyPerMonth = (dollarAmount) => {
     } else return true;
   } else return true;
 };
-
+const filterMonth = (date) => {
+  originalDate = date.split("/");
+  modifiedDate = originalDate.shift();
+  return originalDate.join("/");
+};
 /*-------------------------------------------------------------------- */
 let movements = [];
 class Movement {
@@ -161,7 +217,8 @@ const debitCreditCurrencys = (pesos, dollar) => {
 
   localStorage.setItem(
     "dinero en cuenta pesos",
-    ($pesosAccount.value = $pesosAccount.value - pesos)
+    ($pesosAccount.value =
+      parseFloat($pesosAccount.value / 10) * 10 + parseFloat(pesos / 10) * 10)
   );
   // let buyDate = new Date();
   // let reBuyDate = new Date(buyDate.setMonth(buyDate.getMonth() + 1));
@@ -201,28 +258,49 @@ const saveStorageMovements = () => {
 };
 saveStorageMovements();
 /*-------------------------------------------------------------------- */
+let $seeMovementBtn = document.getElementById("see_movement__btn");
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// const addPurchases = (amountReq) => {
-//   let initialValue = setInitialValue(amountReq);
-// let initialValue = amountReq;
+$seeMovementBtn.addEventListener("click", () => {
+  movementBox.innerHTML = "";
+  seeMovements();
+});
 
-// let addValue = addPurchases2(initialValue);
-// return addValue;
-//   return initialValue;
-// };
-// const addPurchases2 = (initialValue) => {
-//   let totalPurchased = currencyPurchased
-//     .map((amount) => amount.dollar)
-//     .reduce((acc, dollar) => acc + dollar, initialValue);
-//   return totalPurchased;
-// };
+let movementBox = document.getElementById("see_movements__box");
+const seeMovements = () => {
+  let movements = JSON.parse(localStorage.getItem("Movimientos en cuenta"));
+  let movReq = 10;
+  movements = movements.reverse();
+  for (let i = 0; i <= movReq; i++) {
+    const movement = movements[i];
+
+    newDiv = document.createElement("DIV");
+    newDiv.className = "see_movements__box__info";
+
+    dateH3 = document.createElement("H3");
+    dollarH3 = document.createElement("H3");
+    pesosH3 = document.createElement("H3");
+    balancDollarH3 = document.createElement("H3");
+    balancPesosH3 = document.createElement("H3");
+
+    dateH3.innerHTML = `Día: <span>${movement.date}</span>`;
+    dollarH3.innerHTML = `Dolares: <span>$${
+      Math.round(movement.dollar * 100) / 100
+    }</span>`;
+    pesosH3.innerHTML = `Pesos: <span>$${
+      Math.round(movement.pesos * 100) / 100
+    }</span>`;
+    balancDollarH3.innerHTML = `Cuenta dolares: <span>$${
+      Math.round(movement.balanceDollarAccount * 100) / 100
+    }</span>`;
+    balancPesosH3.innerHTML = `Cuenta pesos: <span>$${
+      Math.round(movement.balancePesosAccount * 100) / 100
+    }</span>`;
+
+    newDiv.appendChild(dateH3);
+    newDiv.appendChild(dollarH3);
+    newDiv.appendChild(pesosH3);
+    newDiv.appendChild(balancDollarH3);
+    newDiv.appendChild(balancPesosH3);
+    movementBox.appendChild(newDiv);
+  }
+};
