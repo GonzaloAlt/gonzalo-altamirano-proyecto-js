@@ -18,12 +18,13 @@ getOfficialDollar();
 /*-------------------------------------------------------------------- */
 const buyDollars = (amount, currencyType) => {
   calculateAmount(amount, currencyType);
+
   alertExchange("");
+
   if (accountBuyValidations(pesosAmount, dollarAmount)) {
     if (buyDollarsValidations(pesosAmount, dollarAmount)) {
       showBuyCharges(dollarAmount);
     }
-    // debitCreditCurrencys(pesosAmount, dollarAmount);
   } else return;
 };
 /*-------------------------------------------------------------------- */
@@ -84,7 +85,11 @@ const calculatePesosAmount = (amount) => {
 };
 /*-------------------------------------------------------------------- */
 const checkPesosAccountMoney = (amountReq) => {
-  return parseFloat(amountReq) <= $pesosAccount.value ? true : false;
+  // return parseFloat(amountReq) <= $pesosAccount.value ? true : false;
+  return parseFloat(amountReq) <=
+    parseFloat(localStorage.getItem("dinero en cuenta pesos"))
+    ? true
+    : false;
 };
 const minAmount = (dollarAmount) => {
   return dollarAmount > 0 ? true : false;
@@ -218,12 +223,11 @@ const debitCreditCurrencys = (pesos, dollar) => {
   localStorage.setItem(
     "dinero en cuenta pesos",
     ($pesosAccount.value =
-      parseFloat($pesosAccount.value / 10) * 10 + parseFloat(pesos / 10) * 10)
+      // parseFloat($pesosAccount.value / 10) * 10 + parseFloat(pesos / 10) * 10)
+      parseFloat(localStorage.getItem("dinero en cuenta pesos") / 10) * 10 +
+      parseFloat(pesos / 10) * 10)
   );
-  // let buyDate = new Date();
-  // let reBuyDate = new Date(buyDate.setMonth(buyDate.getMonth() + 1));
-  // reBuyDate = new Date(reBuyDate.setDate(1));
-  // reBuyDate = reBuyDate.toLocaleDateString();
+
   movement = new Movement(
     new Date().toLocaleDateString(),
     dollar,
@@ -231,7 +235,9 @@ const debitCreditCurrencys = (pesos, dollar) => {
     parseFloat($pesosAccount.value),
     parseFloat($dollarAccount.value) + dollar
   );
+
   movements.push(movement);
+
   localStorage.setItem(
     "dinero en cuenta dolares",
     ($dollarAccount.value = setInitialValue(dollar))

@@ -16,6 +16,7 @@ $generateBtn.addEventListener("click", () => {
     "dinero en cuenta pesos",
     ($pesosAccount.value = generateMoney())
   );
+  localStorage.setItem("plazos fijos conformados", "");
   localStorage.setItem("dinero en cuenta dolares", ($dollarAccount.value = 0));
   localStorage.setItem("boton oculto", ($generateBtn.style.display = "none"));
 });

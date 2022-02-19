@@ -1,0 +1,19 @@
+{
+  "name": "gonzalo-altamirano-proyecto",
+  "version": "1.0.0",
+  "description": "proyecto JS para CoderHouse",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GonzaloAlt/gonzalo-altamirano-proyecto-js.git"
+  },
+  "author": "Gonzalo ALtamirano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GonzaloAlt/gonzalo-altamirano-proyecto-js/issues"
+  },
+  "homepage": "https://github.com/GonzaloAlt/gonzalo-altamirano-proyecto-js#readme"
+}

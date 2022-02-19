@@ -22,7 +22,11 @@ const accountSellValidations = (pesosAmount, dollarAmount) => {
   return pesosAmount, dollarAmount;
 };
 const checkDollarAccountMoney = (amountReq) => {
-  return parseFloat(amountReq) <= $dollarAccount.value ? true : false;
+  // return parseFloat(amountReq) <= $dollarAccount.value ? true : false;
+  return parseFloat(amountReq) <=
+    parseFloat(localStorage.getItem("dinero en cuenta dolares"))
+    ? true
+    : false;
 };
 /*-------------------------------------------------------------------- */
 const calculateSellAmount = (amount, currencyType) => {

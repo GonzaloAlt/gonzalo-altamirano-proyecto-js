@@ -214,3 +214,22 @@ button {
     }
   }
 }
+
+.fixed_term_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  width: 20%;
+  .fixed_term_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    input {
+      background-color: #f0f0f0;
+      border: none;
+      text-align: right;
+    }
+  }
+}
