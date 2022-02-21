@@ -171,11 +171,9 @@ const showBuyCharges = (dollarAmount) => {
 /*-------------------------------------------------------------------- */
 const setBuyDate = () => {
   let buyDate = new Date();
-  // console.log(buyDate.toLocaleDateString());
   let reBuyDate = new Date(buyDate.setMonth(buyDate.getMonth() + 1));
   reBuyDate = new Date(reBuyDate.setDate(1));
   reBuyDate = reBuyDate.toLocaleDateString();
-  // console.log(reBuyDate.toLocaleDateString());
   console.log(reBuyDate);
   return reBuyDate;
 };
@@ -257,9 +255,7 @@ const saveStorageMovements = () => {
     let movementsRefresh = JSON.parse(
       localStorage.getItem("Movimientos en cuenta")
     );
-    for (const mov of movementsRefresh) {
-      movements.push(mov);
-    }
+    movements.push(...movementsRefresh);
   }
 };
 saveStorageMovements();

@@ -1,3 +1,9 @@
+/*Crear funcion que:
+1. Dispare matchExpDate() al ingresar al simulador.
+2. Retorne el resto entre las 00:00hs y la hora actual.
+3. Haga un setTimeOut con el valor anterior y vuelva a llamar a matchExpDate().
+*/
+
 //Tasas de interés hardcodeadas, no encuentro API para tomar datos.
 
 const rates = [
@@ -47,9 +53,9 @@ const getFixedTerm = () => {
   inputDays = document.getElementById("fixed_term_days").value;
   if (accountFixedTermsValidations(inputAmount)) {
     ({ days, onlineRate: rate } = matchDayRate(inputDays));
-    percent = interestPercent(days, rate);
+    percent = interestPercent(inputDays, rate);
     interest = interestAmount(inputAmount, percent);
-    showFixTermCharges(inputAmount, days, interest, rate);
+    showFixTermCharges(inputAmount, inputDays, interest, rate);
   }
 };
 
@@ -116,6 +122,7 @@ const generateFixedTermMove = (pesos, days, interest, rate) => {
   rate = parseFloat(rate);
   let today = DateTime.local();
   let newday = today.plus({ days: days });
+
   fixedTerm = new FixedTerm(
     pesos,
     days,
@@ -124,36 +131,45 @@ const generateFixedTermMove = (pesos, days, interest, rate) => {
     today.setLocale("arg").toLocaleString(),
     newday.setLocale("arg").toLocaleString()
   );
+
   fixedTerms.push(fixedTerm);
   localStorage.setItem("plazos fijos conformados", JSON.stringify(fixedTerms));
 };
+
 const saveStorageFixedTerms = () => {
   if (localStorage.getItem("plazos fijos conformados")) {
     let fixedTermsRefresh = JSON.parse(
       localStorage.getItem("plazos fijos conformados")
     );
-    for (const fixTerm of fixedTermsRefresh) {
-      fixedTerms.push(fixTerm);
-    }
+    fixedTerms.push(...fixedTermsRefresh);
   }
 };
 saveStorageFixedTerms();
 /*-------------------------------------------------------------------- */
-const constDate = () => {
-  let buyDate = new Date();
+const matchExpDate = () => {
+  let movStorage = JSON.parse(localStorage.getItem("plazos fijos conformados"));
+  let today = DateTime.local();
+  today = today.setLocale("arg").toLocaleString();
 
-  return buyDate.toLocaleDateString();
+  movStorage.map((mov, index) => {
+    if (today === mov.expirationDate) {
+      return depositTerm(mov, index);
+    }
+  });
 };
-const expDate = (days) => {
-  date = new Date();
-  console.log(date);
-  nextday = new Date(date.getDate() + 1);
-  nextday = nextday.toLocaleDateString();
-  console.log(nextday);
+const depositTerm = (mov, index) => {
+  let totalAmount = (mov.pesos + mov.interest).toFixed(2);
+  fixedTerms.splice(index, 1);
+  localStorage.setItem("plazos fijos conformados", JSON.stringify(fixedTerms));
+  debitCreditCurrencys(totalAmount, 0);
 };
 /*-------------------------------------------------------------------- */
 const showFixTermCharges = (pesosAmount, days, interest, rate) => {
   const $charges = document.getElementById("charges");
+
+  let today = DateTime.local();
+  let newday = today.plus({ days: days });
+
   $charges.innerHTML = "";
   $newDiv = document.createElement("DIV");
   $newDiv.className = "generated_charges";
@@ -171,9 +187,13 @@ const showFixTermCharges = (pesosAmount, days, interest, rate) => {
   $pesosH3.innerHTML = `Capital: <span>$${pesosAmount}</span>`;
   $daysH3.innerHTML = `Plazo: <span>${days} días</span>`;
   $rateH3.innerHTML = `Tasa de interés (T.N.A): <span>${rate}%</span>`;
-  $interestH3.innerHTML = `Intereses: <span>$${interest}</span>`;
-  $constitutionDate.innerHTML = `Fecha de constitución: <span>${new Date()}</span>`;
-  $expirationDatetH3.innerHTML = `Fecha de vencimiento: <span>${new Date()}</span>`;
+  $interestH3.innerHTML = `Intereses: <span>$${interest.toFixed(2)}</span>`;
+  $constitutionDate.innerHTML = `Fecha de constitución: <span>${today
+    .setLocale("arg")
+    .toLocaleString()}</span>`;
+  $expirationDatetH3.innerHTML = `Fecha de vencimiento: <span>${newday
+    .setLocale("arg")
+    .toLocaleString()}</span>`;
 
   $buttonAccept.innerHTML = `Constituir`;
 
@@ -183,6 +203,8 @@ const showFixTermCharges = (pesosAmount, days, interest, rate) => {
   $newDiv.appendChild($daysH3);
   $newDiv.appendChild($rateH3);
   $newDiv.appendChild($interestH3);
+  $newDiv.appendChild($constitutionDate);
+  $newDiv.appendChild($expirationDatetH3);
 
   $newDiv.appendChild($buttonAccept);
   $newDiv.appendChild($buttonDecline);
@@ -198,7 +220,3 @@ const showFixTermCharges = (pesosAmount, days, interest, rate) => {
     return false;
   });
 };
-
-// let f = { month: "long", day: "2-digit" };
-// let tz = today.zoneName;
-// console.log(tz);
