@@ -152,17 +152,41 @@ const matchExpDate = () => {
   today = today.setLocale("arg").toLocaleString();
 
   movStorage.map((mov, index) => {
-    if (today === mov.expirationDate) {
-      return depositTerm(mov, index);
-    }
+    if (today === mov.expirationDate) return depositTerm(mov, index);
   });
 };
+
 const depositTerm = (mov, index) => {
   let totalAmount = (mov.pesos + mov.interest).toFixed(2);
   fixedTerms.splice(index, 1);
   localStorage.setItem("plazos fijos conformados", JSON.stringify(fixedTerms));
   debitCreditCurrencys(totalAmount, 0);
 };
+/*-------------------------------------------------------------------- */
+const timer = () => {
+  if (localStorage.getItem("plazos fijos conformados") != "") {
+    matchExpDate();
+    milliseconds = getMilliseconds();
+
+    setInterval(() => {
+      timer();
+    }, milliseconds);
+  }
+};
+
+const getMilliseconds = () => {
+  let today = DateTime.local();
+  let newday = today.plus({ days: 1 });
+  newday = newday
+    .set({ hour: 00, minutes: 00, seconds: 00, milliseconds: 00 })
+    .setLocale("arg")
+    .toISO();
+  let result = DateTime.fromISO(newday).diffNow();
+  return result.values.milliseconds;
+};
+
+timer();
+
 /*-------------------------------------------------------------------- */
 const showFixTermCharges = (pesosAmount, days, interest, rate) => {
   const $charges = document.getElementById("charges");
