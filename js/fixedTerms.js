@@ -1,9 +1,3 @@
-/*Crear funcion que:
-1. Dispare matchExpDate() al ingresar al simulador.
-2. Retorne el resto entre las 00:00hs y la hora actual.
-3. Haga un setTimeOut con el valor anterior y vuelva a llamar a matchExpDate().
-*/
-
 //Tasas de interés hardcodeadas, no encuentro API para tomar datos.
 
 const rates = [
@@ -90,18 +84,15 @@ const finalAmount = (interest, amount) => {
 };
 /*-------------------------------------------------------------------- */
 const accountFixedTermsValidations = (pesosAmount) => {
-  if (checkPesosAccountMoney(pesosAmount)) {
-  } else {
+  if (!checkPesosAccountMoney(pesosAmount)) {
     alertExchange("*Excede la cantidad en su cuenta");
     return false;
   }
-  if (minFixedTermAmount(pesosAmount)) {
-  } else {
+  if (!minFixedTermAmount(pesosAmount)) {
     alertExchange("*Ingrese monto mayor a $500");
     return false;
   }
-  if (minDaysValidation(inputDays)) {
-  } else {
+  if (!minDaysValidation(inputDays)) {
     alertExchange("El plazo debe ser mayor o igual a 30");
     return false;
   }

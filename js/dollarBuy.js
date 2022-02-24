@@ -29,13 +29,11 @@ const buyDollars = (amount, currencyType) => {
 };
 /*-------------------------------------------------------------------- */
 const accountBuyValidations = (pesosAmount, dollarAmount) => {
-  if (checkPesosAccountMoney(pesosAmount)) {
-  } else {
+  if (!checkPesosAccountMoney(pesosAmount)) {
     alertExchange("*Excede la cantidad en su cuenta");
     return false;
   }
-  if (minAmount(dollarAmount)) {
-  } else {
+  if (!minAmount(dollarAmount)) {
     alertExchange("*Ingrese monto mayor a 0");
     return false;
   }
@@ -43,13 +41,11 @@ const accountBuyValidations = (pesosAmount, dollarAmount) => {
 };
 
 const buyDollarsValidations = (pesosAmount, dollarAmount) => {
-  if (limitBuyPerMonth(dollarAmount)) {
-  } else {
+  if (!limitBuyPerMonth(dollarAmount)) {
     alertExchange("*Excede el límite mensual permitido");
     return false;
   }
-  if (limitAmount(dollarAmount)) {
-  } else {
+  if (!limitAmount(dollarAmount)) {
     alertExchange("*Excede el límite mensual permitido");
     return false;
   }
@@ -85,7 +81,6 @@ const calculatePesosAmount = (amount) => {
 };
 /*-------------------------------------------------------------------- */
 const checkPesosAccountMoney = (amountReq) => {
-  // return parseFloat(amountReq) <= $pesosAccount.value ? true : false;
   return parseFloat(amountReq) <=
     parseFloat(localStorage.getItem("dinero en cuenta pesos"))
     ? true

@@ -9,20 +9,17 @@ const sellDollars = (amount, currencyType) => {
 };
 /*-------------------------------------------------------------------- */
 const accountSellValidations = (pesosAmount, dollarAmount) => {
-  if (checkDollarAccountMoney(dollarAmount)) {
-  } else {
+  if (!checkDollarAccountMoney(dollarAmount)) {
     alertExchange("*Excede la cantidad en su cuenta");
     return false;
   }
-  if (minAmount(dollarAmount)) {
-  } else {
+  if (!minAmount(dollarAmount)) {
     alertExchange("*Ingrese monto mayor a 0");
     return false;
   }
   return pesosAmount, dollarAmount;
 };
 const checkDollarAccountMoney = (amountReq) => {
-  // return parseFloat(amountReq) <= $dollarAccount.value ? true : false;
   return parseFloat(amountReq) <=
     parseFloat(localStorage.getItem("dinero en cuenta dolares"))
     ? true

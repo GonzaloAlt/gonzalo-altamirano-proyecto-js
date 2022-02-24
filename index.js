@@ -5,13 +5,13 @@ let $localStorageBtn = document.getElementById("localStorage-btn");
 
 $pesosAccount.value = localStorage.getItem("dinero en cuenta pesos");
 $dollarAccount.value = localStorage.getItem("dinero en cuenta dolares");
-$generateBtn.style.display = localStorage.getItem("boton oculto");
 
 let generateMoney = () => {
   return Math.round(Math.random() * (20000000 - 10000) + 10000) / 100;
 };
 
 $generateBtn.addEventListener("click", () => {
+  $generateBtn.style.display = localStorage.getItem("boton oculto");
   localStorage.setItem(
     "dinero en cuenta pesos",
     ($pesosAccount.value = generateMoney())
