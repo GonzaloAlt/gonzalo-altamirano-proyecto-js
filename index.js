@@ -24,7 +24,7 @@ $generateBtn.addEventListener("click", () => {
 $localStorageBtn.addEventListener("click", () => {
   localStorage.clear();
   movements = [];
-  movementBox.innerHTML = "";
+  $movementBox.innerHTML = "";
   $pesosAccount.value = "";
   $dollarAccount.value = "";
   $generateBtn.style.display = "inline-block";
