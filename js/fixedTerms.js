@@ -31,8 +31,8 @@ const renderRates = () => {
     $daysH3 = document.createElement("H3");
     $onlineRate = document.createElement("H3");
 
-    $daysH3.innerHTML = `Días: ${rate.days}`;
-    $onlineRate.innerHTML = `Tasa online: ${rate.onlineRate}%`;
+    $daysH3.innerHTML = `Días: <span> ${rate.days}</span>`;
+    $onlineRate.innerHTML = `Tasa online: <span>${rate.onlineRate}%</span>`;
 
     $ratesBox.appendChild($newDiv);
     $newDiv.appendChild($daysH3);

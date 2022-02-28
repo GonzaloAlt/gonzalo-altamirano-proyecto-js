@@ -25,8 +25,6 @@ const bankList = [
   { pampa: "Banco de La Pampa" },
 ];
 
-const riesgoPais = "riesgopais";
-
 let $selectBanks = document.getElementById("select_banks");
 let $containerOpt = document.getElementById("exchange_container__options");
 const $searchRates = document.getElementById("search-btn");
@@ -61,6 +59,7 @@ let getExchangeData = async (currency) => {
 };
 //
 //
+/*-------------------------------------------------------------------- */
 /* Recibe un [{}], llama a getExchangeData() y completa los objetos con los datos de la API */
 let getSearch = async (searches) => {
   let bankInfoList = [];
@@ -77,6 +76,7 @@ let getSearch = async (searches) => {
 };
 //
 //
+/*-------------------------------------------------------------------- */
 /* Crea una lista de inputs con todos los bancos disponibles */
 let createBankCheckBox = () => {
   for (const bank of bankList) {
@@ -94,6 +94,7 @@ createBankCheckBox();
 //
 //
 //
+/*-------------------------------------------------------------------- */
 /* Valida los bancos seleccionados, devuelve [{}] y llama a renderDataDolar() */
 let checkBanks = () => {
   clearContainer("class", "exchange_container__banklist_searches");
@@ -113,6 +114,7 @@ let checkBanks = () => {
 };
 //
 //
+/*-------------------------------------------------------------------- */
 /* Renderiza según [{}] se le pasa comp parametro, tipo de selector y nombre de clase/id 
 en el que se quiere appendear los resultados */
 let renderDataDolar = async (search, selectorType, fatherAppend) => {
@@ -129,7 +131,7 @@ let renderDataDolar = async (search, selectorType, fatherAppend) => {
       const bankH2 = document.createElement("H2");
       bankH2.textContent = currency.name;
       const bankH3 = document.createElement("H3");
-      bankH3.textContent = `Compra: ${currency.buy}|| Venta: ${currency.sell}`;
+      bankH3.textContent = `Compra: ${currency.buy} || Venta: ${currency.sell}`;
       bankDiv.appendChild(bankCard);
       bankCard.appendChild(bankH2);
       bankCard.appendChild(bankH3);
@@ -144,6 +146,7 @@ let renderDataDolar = async (search, selectorType, fatherAppend) => {
 
 renderDataDolar(defaultSearches, "id", "exchange_container__default_searches");
 
+/*-------------------------------------------------------------------- */
 /* Limpia el contenedor para que las busquedas no se concatenen una detrás de otra infinitamente */
 const clearContainer = (selectorType, fatherAppend) => {
   selectorType == "id".toLocaleLowerCase()
@@ -151,38 +154,3 @@ const clearContainer = (selectorType, fatherAppend) => {
     : (document.getElementsByClassName(`${fatherAppend}`)[0].innerHTML = "");
 };
 /* -------------------------------------------------------------------------------------------------------- */
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// let getSearch = async (searches) => {
-//   let bankInfoList = [];
-// searches.forEach(async (e) => {
-//   response = await getExchangeData(Object.keys(e));
-
-//   bankInfoList.push(
-//     new Bank(Object.values(await e).toString(), response.compra, response.venta)
-//   );
-// });
-// console.log(bankInfoList);
-// return bankInfoList;
-// };
