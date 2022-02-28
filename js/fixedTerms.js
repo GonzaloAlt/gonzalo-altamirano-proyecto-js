@@ -22,7 +22,8 @@ class FixedTerm {
     this.expirationDate = expirationDate;
   }
 }
-
+/*-------------------------------------------------------------------- */
+/* Renderiza tasas de interés */
 const renderRates = () => {
   $ratesBox = document.getElementById("rates_box");
 
@@ -41,6 +42,7 @@ const renderRates = () => {
 };
 renderRates();
 /*-------------------------------------------------------------------- */
+/* Renderiza tasas de interés */
 const getFixedTerm = () => {
   alertExchange("");
   inputAmount = document.getElementById("fixed_term_amount").value;
@@ -105,6 +107,7 @@ const minFixedTermAmount = (pesosAmount) => {
 const minDaysValidation = (days) => {
   return days >= 30 ? true : false;
 };
+
 /*-------------------------------------------------------------------- */
 const generateFixedTermMove = (pesos, days, interest, rate) => {
   pesos = parseFloat(pesos);
@@ -137,6 +140,7 @@ const saveStorageFixedTerms = () => {
 };
 saveStorageFixedTerms();
 /*-------------------------------------------------------------------- */
+/* Matchea día de expiración de cada plazo fijo con el día actual */
 const matchExpDate = () => {
   let movStorage = JSON.parse(localStorage.getItem("plazos fijos conformados"));
   let today = DateTime.local();
@@ -146,7 +150,7 @@ const matchExpDate = () => {
     if (today === mov.expirationDate) return depositTerm(mov, index);
   });
 };
-
+/* Deposita el monto total del plazo fijo */
 const depositTerm = (mov, index) => {
   let totalAmount = (mov.pesos + mov.interest).toFixed(2);
   fixedTerms.splice(index, 1);
@@ -154,6 +158,7 @@ const depositTerm = (mov, index) => {
   debitCreditCurrencys(totalAmount, 0);
 };
 /*-------------------------------------------------------------------- */
+/* Toma milisegundos faltantes para que cada 00:00 llame a matchExpDate() */
 const timer = () => {
   if (localStorage.getItem("plazos fijos conformados") != "") {
     matchExpDate();
@@ -164,7 +169,7 @@ const timer = () => {
     }, milliseconds);
   }
 };
-
+/* Retorna milisegundos faltantes hasta las 00:00 */
 const getMilliseconds = () => {
   let today = DateTime.local();
   let newday = today.plus({ days: 1 });
@@ -179,6 +184,7 @@ const getMilliseconds = () => {
 timer();
 
 /*-------------------------------------------------------------------- */
+/* Muestra cargos y valida si se aceptan o no */
 const showFixTermCharges = (pesosAmount, days, interest, rate) => {
   const $charges = document.getElementById("charges");
 
@@ -235,3 +241,55 @@ const showFixTermCharges = (pesosAmount, days, interest, rate) => {
     return false;
   });
 };
+/*-------------------------------------------------------------------- */
+/* Muestra movimientos de la cuenta */
+let $seeFixedTermsBtn = document.getElementById("see_fixedTerms__btn");
+
+$seeFixedTermsBtn.addEventListener("click", () => {
+  $movementBox.innerHTML = "";
+  seeMovements();
+});
+/*-------------------------------------------------------------------- */
+/* Renderiza plazos fijos vigentes */
+let $movementBox = document.getElementById("see_fixedTerms__box");
+const seeMovements = () => {
+  let movements = JSON.parse(localStorage.getItem("plazos fijos conformados"));
+  for (let i = 0; i <= movements.length; i++) {
+    const movement = movements[i];
+
+    newDiv = document.createElement("DIV");
+    newDiv.className = "see_fixedTerms__box__info";
+
+    pesosH3 = document.createElement("H3");
+    daysH3 = document.createElement("H3");
+    interestH3 = document.createElement("H3");
+    rateH3 = document.createElement("H3");
+    constitutionDateH3 = document.createElement("H3");
+    expirationDateH3 = document.createElement("H3");
+
+    pesosH3.innerHTML = `Pesos: <span>${movement.pesos}</span>`;
+    daysH3.innerHTML = `Días: <span>${movement.days}</span>`;
+    interestH3.innerHTML = `Intereses: <span>$${
+      Math.round(movement.interest * 100) / 100
+    }</span>`;
+    rateH3.innerHTML = `Tasa: <span>${movement.rate}%</span>`;
+    constitutionDateH3.innerHTML = `Constituido: <span>${movement.constitutionDate}</span>`;
+    expirationDateH3.innerHTML = `Expira: <span>${movement.expirationDate}</span>`;
+
+    newDiv.appendChild(pesosH3);
+    newDiv.appendChild(daysH3);
+    newDiv.appendChild(interestH3);
+    newDiv.appendChild(rateH3);
+    newDiv.appendChild(constitutionDateH3);
+    newDiv.appendChild(expirationDateH3);
+    $movementBox.appendChild(newDiv);
+  }
+};
+
+/*-------------------------------------------------------------------- */
+/* Toggle para ver movimientos */
+$seeFixedTermsBtn.addEventListener("click", () => {
+  $movementBox.style.display == "none"
+    ? ($movementBox.style.display = "flex")
+    : ($movementBox.style.display = "none");
+});

@@ -1,3 +1,7 @@
+/* ---------ACLARACIÓN!!--------- 
+Al hacer la venta de dolares, estos se venden al precio oficial 
+sin el 65% de impuestos que se perciben al momento de la compra */
+
 const sellDollars = (amount, currencyType) => {
   calculateSellAmount(amount, currencyType);
 
@@ -8,6 +12,8 @@ const sellDollars = (amount, currencyType) => {
   } else return;
 };
 /*-------------------------------------------------------------------- */
+/* Validaciones de montos en cuenta */
+
 const accountSellValidations = (pesosAmount, dollarAmount) => {
   if (!checkDollarAccountMoney(dollarAmount)) {
     alertExchange("*Excede la cantidad en su cuenta");
@@ -26,6 +32,8 @@ const checkDollarAccountMoney = (amountReq) => {
     : false;
 };
 /*-------------------------------------------------------------------- */
+/* Calculos según moneda elegida */
+
 const calculateSellAmount = (amount, currencyType) => {
   currencyType == "dollar"
     ? calculateSellDollarAmount(amount)
@@ -41,6 +49,8 @@ const calculateSellPesosAmount = (amount) => {
   return (dollarAmount = pesosAmount / officialDollarPrice.buy);
 };
 /*-------------------------------------------------------------------- */
+/* Muestra los cargos y llama a debitCreditCurrencys() si se aceptan */
+
 const showSellCharges = (dollarAmount) => {
   const $charges = document.getElementById("charges");
   $charges.innerHTML = "";

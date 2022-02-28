@@ -61,10 +61,11 @@
         </div>
       </div>
     </nav>
-    <section class="exchange_container">
+    <section class="exchange_container" style="display: none">
       <div id="exchange_container__default_searches"></div>
     </section>
     <section>
+      <h2>Tasas</h2>
       <div id="rates_box"></div>
     </section>
 
@@ -106,6 +107,13 @@
     <section>
       <div id="charges"></div>
     </section>
+    <section class="see_fixedTerms__container">
+      <h2>Ver plazos fijos conformados</h2>
+      <div id="see_fixedTerms__btn">
+        <img src="../imgs/downArrow.png" alt="boton flecha" />
+      </div>
+      <div id="see_fixedTerms__box" style="display: none"></div>
+    </section>
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
@@ -120,14 +128,9 @@
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/datetime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/luxon.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/zone.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/settings.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/interval.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/info.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/errors.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/src/duration.min.js"></script> -->
-    <script src="../index.js"></script>
-    <script src="../js/dollarBuy.js"></script>
+    <script src="../js/globalVar.js"></script>
+    <script src="../js/currencyAPI.js"></script>
     <script src="../js/fixedTerms.js"></script>
+    <script src="../js/dollarBuy.js"></script>
   </body>
 </html>

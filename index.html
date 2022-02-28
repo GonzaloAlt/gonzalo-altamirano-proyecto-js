@@ -65,16 +65,6 @@
       <div id="exchange_container__default_searches"></div>
     </section>
     <section>
-      <div>
-        <button id="select_banks" style="display: none">
-          SELECCIONAR BANCOS
-        </button>
-      </div>
-      <div id="exchange_container__options"></div>
-      <button id="search-btn">Buscar cotizaciones</button>
-      <div class="exchange_container__banklist_searches"></div>
-    </section>
-    <section>
       <h2>Estado de cuenta</h2>
       <div class="money-container">
         <label for="">Cuenta pesos $</label>
@@ -94,7 +84,7 @@
       <div id="see_movement__btn">
         <img src="./imgs/downArrow.png" alt="boton flecha" />
       </div>
-      <div id="see_movements__box"></div>
+      <div id="see_movements__box" style="display: none"></div>
     </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
@@ -106,10 +96,10 @@
       integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
       crossorigin="anonymous"
     ></script>
-
+    <script src="./js/globalVar.js"></script>
+    <script src="./js/currencyAPI.js"></script>
     <script src="index.js"></script>
-    <script src="./js/currency.js"></script>
-    <script src="./js/dollarBuy.js"></script>
+    <!-- <script src="./js/dollarBuy.js"></script> -->
     <script src="./js/dollarSell.js"></script>
   </body>
 </html>

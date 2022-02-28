@@ -262,12 +262,19 @@ button:hover {
 }
 
 .see_movement__container .see_movements__box__info h3 {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 300;
 }
 
 .see_movement__container .see_movements__box__info h3 span {
   font-weight: 100;
+}
+
+.see_movement__container #see_movements__box {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .see_movement__container #see_movement__btn {
@@ -369,5 +376,52 @@ button:hover {
   width: 100px;
   text-align: right;
   padding-right: 9px;
+}
+
+.see_fixedTerms__container {
+  background-color: white;
+  padding: 50px 1%;
+}
+
+.see_fixedTerms__container .see_fixedTerms__box__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 8px;
+  border: 1px solid #c7c7c7;
+  padding: 5px 10px;
+}
+
+.see_fixedTerms__container .see_fixedTerms__box__info h3 {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.see_fixedTerms__container .see_fixedTerms__box__info h3 span {
+  font-weight: 100;
+}
+
+.see_fixedTerms__container #see_fixedTerms__box {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.see_fixedTerms__container #see_fixedTerms__btn {
+  border: none;
+  width: 30px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.see_fixedTerms__container #see_fixedTerms__btn img {
+  width: 100%;
+  -webkit-filter: invert(33%) sepia(92%) saturate(5873%) hue-rotate(344deg) brightness(82%) contrast(104%);
+          filter: invert(33%) sepia(92%) saturate(5873%) hue-rotate(344deg) brightness(82%) contrast(104%);
 }
 /*# sourceMappingURL=styles.css.map */

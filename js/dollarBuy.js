@@ -1,9 +1,11 @@
+renderDataDolar(defaultSearches, "id", "exchange_container__default_searches");
+
 let officialDollarPrice = {
   buy: 110,
   sell: 110,
 };
 const buyLimit = 200;
-/* Hace un llamado a la API para buscar el valor del dolar oficial*/
+/* Hace un llamado a la API para buscar el valor del dolar oficial */
 const getOfficialDollar = async () => {
   response = getExchangeData("dolaroficial");
   data = await response;
@@ -97,7 +99,7 @@ const minAmount = (dollarAmount) => {
 
 /*-------------------------------------------------------------------- */
 /* Valida selección de moneda */
-/*Funcion llamada desde el DOM- CAMBIAR!!!*/
+/*Funcion llamada desde el DOM!!!*/
 
 let checkCurrency = (currencyFunction) => {
   let buyAmountSelection = [];
@@ -173,14 +175,6 @@ const showBuyCharges = (dollarAmount) => {
 /*-------------------------------------------------------------------- */
 /* Suma movimientos en dolares para limitar los 200 dolares mensuales */
 
-// const setBuyDate = () => {
-//   let buyDate = new Date();
-//   let reBuyDate = new Date(buyDate.setMonth(buyDate.getMonth() + 1));
-//   reBuyDate = new Date(reBuyDate.setDate(1));
-//   reBuyDate = reBuyDate.toLocaleDateString();
-//   console.log(reBuyDate);
-//   return reBuyDate;
-// };
 const limitBuyPerMonth = (dollarAmount) => {
   acumulator = [];
   monthMovements = JSON.parse(localStorage.getItem("Movimientos en cuenta"));
@@ -189,13 +183,11 @@ const limitBuyPerMonth = (dollarAmount) => {
   initialValue = parseFloat(dollarAmount);
   if (monthMovements) {
     for (const move of monthMovements) {
-      // if (move.date == newDate) acumulator.push(move);
       if (filterMonth(move.date) == filterMonth(newDate)) acumulator.push(move);
     }
     let totalPurchased = acumulator
       .map((amount) => amount.dollar)
       .reduce((acc, dollar) => acc + dollar, initialValue);
-    // console.log(totalPurchased);
     if (totalPurchased > 200) {
       return false;
     } else return true;

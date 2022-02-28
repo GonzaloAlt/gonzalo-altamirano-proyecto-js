@@ -8,7 +8,7 @@
 
 $primaryColor: #d51926;
 $secondaryColor: #f0f0f0;
-$terciaryColor: rgb(240, 231, 106);
+$tertiaryColor: rgb(240, 231, 106);
 
 $primaryFont: "Roboto Mono", monospace;
 $secondaryFont: "Oswald", sans-serif;
@@ -24,7 +24,7 @@ $secondaryFont: "Oswald", sans-serif;
   margin: 10px 0px;
 }
 @mixin btn-hov {
-  background-color: $terciaryColor;
+  background-color: $tertiaryColor;
 }
 @mixin btn-act {
   background-color: $secondaryColor;
@@ -174,12 +174,15 @@ button {
     padding: 5px 10px;
 
     h3 {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 300;
       span {
         font-weight: 100;
       }
     }
+  }
+  #see_movements__box {
+    flex-direction: column;
   }
   #see_movement__btn {
     border: none;
@@ -242,6 +245,40 @@ button {
       width: 100px;
       text-align: right;
       padding-right: 9px;
+    }
+  }
+}
+
+.see_fixedTerms__container {
+  background-color: white;
+  padding: 50px 1%;
+  .see_fixedTerms__box__info {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    border: 1px solid rgb(199, 199, 199);
+    padding: 5px 10px;
+
+    h3 {
+      font-size: 15px;
+      font-weight: 300;
+      span {
+        font-weight: 100;
+      }
+    }
+  }
+  #see_fixedTerms__box {
+    flex-direction: column;
+  }
+  #see_fixedTerms__btn {
+    border: none;
+    width: 30px;
+    padding: 0px;
+    margin: 0px;
+    img {
+      width: 100%;
+      filter: invert(33%) sepia(92%) saturate(5873%) hue-rotate(344deg)
+        brightness(82%) contrast(104%);
     }
   }
 }

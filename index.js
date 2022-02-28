@@ -1,11 +1,8 @@
-let $pesosAccount = document.getElementById("pesos-account");
-let $dollarAccount = document.getElementById("dollar-account");
 let $generateBtn = document.getElementById("generate-btn");
-let $localStorageBtn = document.getElementById("localStorage-btn");
 
-$pesosAccount.value = localStorage.getItem("dinero en cuenta pesos");
-$dollarAccount.value = localStorage.getItem("dinero en cuenta dolares");
 $generateBtn.style.display = localStorage.getItem("boton oculto");
+/*-------------------------------------------------------------------- */
+renderDataDolar(defaultSearches, "id", "exchange_container__default_searches");
 /*-------------------------------------------------------------------- */
 let generateMoney = () => {
   return Math.round(Math.random() * (20000000 - 10000) + 10000) / 100;
@@ -37,12 +34,12 @@ $localStorageBtn.addEventListener("click", () => {
 let $seeMovementBtn = document.getElementById("see_movement__btn");
 
 $seeMovementBtn.addEventListener("click", () => {
-  movementBox.innerHTML = "";
+  $movementBox.innerHTML = "";
   seeMovements();
 });
 /*-------------------------------------------------------------------- */
 /* Renderiza los movimientos en cuenta */
-let movementBox = document.getElementById("see_movements__box");
+let $movementBox = document.getElementById("see_movements__box");
 const seeMovements = () => {
   let movements = JSON.parse(localStorage.getItem("Movimientos en cuenta"));
   let movReq = 10;
@@ -78,6 +75,11 @@ const seeMovements = () => {
     newDiv.appendChild(pesosH3);
     newDiv.appendChild(balanceDollarH3);
     newDiv.appendChild(balancePesosH3);
-    movementBox.appendChild(newDiv);
+    $movementBox.appendChild(newDiv);
   }
 };
+$seeMovementBtn.addEventListener("click", () => {
+  $movementBox.style.display == "none"
+    ? ($movementBox.style.display = "flex")
+    : ($movementBox.style.display = "none");
+});
