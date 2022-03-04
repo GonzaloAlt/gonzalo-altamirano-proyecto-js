@@ -35,52 +35,64 @@ class Bank {
 
 /* Llamado a la API */
 let getExchangeData = async (currency) => {
-  response = await fetch(`${API}${currency}`);
-  const data = await response.json();
-  return data;
+  try {
+    response = await fetch(`${API}${currency}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 //
 //
 /*-------------------------------------------------------------------- */
 /* Recibe un [{}], llama a getExchangeData() y completa los objetos con los datos de la API */
 let getSearch = async (searches) => {
-  let bankInfoList = [];
-  await searches.reduce(async (pv, cv) => {
-    bankInfoList = await pv;
-    response = await getExchangeData(Object.keys(cv));
-    bankInfoList.push(
-      new Bank(Object.values(cv).toString(), response.compra, response.venta)
-    );
+  try {
+    let bankInfoList = [];
+    await searches.reduce(async (pv, cv) => {
+      bankInfoList = await pv;
+      response = await getExchangeData(Object.keys(cv));
+      bankInfoList.push(
+        new Bank(Object.values(cv).toString(), response.compra, response.venta)
+      );
+      return bankInfoList;
+    }, Promise.resolve([]));
     return bankInfoList;
-  }, Promise.resolve([]));
-  return bankInfoList;
+  } catch (error) {
+    console.log(error);
+  }
 };
 /*-------------------------------------------------------------------- */
 /* Renderiza según [{}] se le pasa comp parametro, tipo de selector y nombre de clase/id 
 en el que se quiere appendear los resultados */
 let renderDataDolar = async (search, selectorType, fatherAppend) => {
-  response = getSearch(search);
-  data = await response;
-  // console.log(data);
-  const bankDiv = document.createElement("ul");
-  bankDiv.className = "bank-div";
-  for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
-      const bankCard = document.createElement("li");
-      bankCard.className = "bank-card";
-      const currency = data[key];
-      const bankH2 = document.createElement("H2");
-      bankH2.textContent = currency.name;
-      const bankH3 = document.createElement("H3");
-      bankH3.textContent = `Compra: ${currency.buy} || Venta: ${currency.sell}`;
-      bankDiv.appendChild(bankCard);
-      bankCard.appendChild(bankH2);
-      bankCard.appendChild(bankH3);
+  try {
+    response = getSearch(search);
+    data = await response;
+    // console.log(data);
+    const bankDiv = document.createElement("ul");
+    bankDiv.className = "bank-div";
+    for (const key in data) {
+      if (Object.hasOwnProperty.call(data, key)) {
+        const bankCard = document.createElement("li");
+        bankCard.className = "bank-card";
+        const currency = data[key];
+        const bankH2 = document.createElement("H2");
+        bankH2.textContent = currency.name;
+        const bankH3 = document.createElement("H3");
+        bankH3.textContent = `Compra: ${currency.buy} || Venta: ${currency.sell}`;
+        bankDiv.appendChild(bankCard);
+        bankCard.appendChild(bankH2);
+        bankCard.appendChild(bankH3);
+      }
     }
+    selectorType == "id".toLocaleLowerCase()
+      ? document.getElementById(`${fatherAppend}`).appendChild(bankDiv)
+      : document
+          .getElementsByClassName(`${fatherAppend}`)[0]
+          .appendChild(bankDiv);
+  } catch (error) {
+    console.log(error);
   }
-  selectorType == "id".toLocaleLowerCase()
-    ? document.getElementById(`${fatherAppend}`).appendChild(bankDiv)
-    : document
-        .getElementsByClassName(`${fatherAppend}`)[0]
-        .appendChild(bankDiv);
 };
