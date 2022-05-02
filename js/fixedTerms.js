@@ -144,6 +144,7 @@ saveStorageFixedTerms();
 const matchExpDate = () => {
   let movStorage = JSON.parse(localStorage.getItem("plazos fijos conformados"));
   let today = DateTime.local();
+
   today = today.setLocale("arg").toLocaleString();
 
   movStorage.map((mov, index) => {
@@ -163,7 +164,6 @@ const timer = () => {
   if (localStorage.getItem("plazos fijos conformados") != "") {
     matchExpDate();
     milliseconds = getMilliseconds();
-
     setInterval(() => {
       timer();
     }, milliseconds);

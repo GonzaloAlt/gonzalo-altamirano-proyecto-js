@@ -7,10 +7,14 @@ let officialDollarPrice = {
 const buyLimit = 200;
 /* Hace un llamado a la API para buscar el valor del dolar oficial */
 const getOfficialDollar = async () => {
-  response = getExchangeData("dolaroficial");
-  data = await response;
-  officialDollarPrice.buy = parseFloat(data.compra);
-  officialDollarPrice.sell = parseFloat(data.venta);
+  try {
+    response = getExchangeData("dolaroficial");
+    data = await response;
+    officialDollarPrice.buy = parseFloat(data.compra);
+    officialDollarPrice.sell = parseFloat(data.venta);
+  } catch (e) {
+    throw new Error(error);
+  }
 };
 
 const impuestoPais = officialDollarPrice.sell * 0.3;
