@@ -26,7 +26,7 @@ let createBankCheckBox = () => {
     )}"><input type="checkbox" id="${Object.keys(
       bank
     )}" class="bank"/>${Object.values(bank)}</label>`;
-    bankDiv.className = "bank";
+    // bankDiv.className = "bank";
     $containerOpt.appendChild(bankDiv);
   }
 };

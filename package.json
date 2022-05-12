@@ -4,7 +4,9 @@
   "description": "proyecto JS para CoderHouse",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress-dev": "cypress open",
+    "cypress-run": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/GonzaloAlt/gonzalo-altamirano-proyecto-js/issues"
   },
-  "homepage": "https://github.com/GonzaloAlt/gonzalo-altamirano-proyecto-js#readme"
+  "homepage": "https://github.com/GonzaloAlt/gonzalo-altamirano-proyecto-js#readme",
+  "dependencies": {
+    "http-server": "^14.1.0"
+  },
+  "devDependencies": {
+    "cypress": "^9.6.1",
+    "cypress-localstorage-commands": "^1.7.0"
+  }
 }

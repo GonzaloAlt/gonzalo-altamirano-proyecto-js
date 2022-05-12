@@ -5,7 +5,9 @@ $generateBtn.style.display = localStorage.getItem("boton oculto");
 renderDataDolar(defaultSearches, "id", "exchange_container__default_searches");
 /*-------------------------------------------------------------------- */
 let generateMoney = () => {
-  return Math.round(Math.random() * (20000000 - 10000) + 10000) / 100;
+  return parseInt(
+    Math.round(Math.random() * (200000000 - 100000) + 10000) / 100
+  );
 };
 /*-------------------------------------------------------------------- */
 /* Crea elementos iniciales del localStorage */
@@ -35,16 +37,24 @@ let $seeMovementBtn = document.getElementById("see_movement__btn");
 
 $seeMovementBtn.addEventListener("click", () => {
   $movementBox.innerHTML = "";
-  seeMovements();
+  let movements = JSON.parse(localStorage.getItem("Movimientos en cuenta"));
+
+  if (movements) seeMovements();
 });
 /*-------------------------------------------------------------------- */
 /* Renderiza los movimientos en cuenta */
 let $movementBox = document.getElementById("see_movements__box");
 const seeMovements = () => {
   let movements = JSON.parse(localStorage.getItem("Movimientos en cuenta"));
-  let movReq = 10;
+  let movReq;
   movements = movements.reverse();
-  for (let i = 0; i <= movReq; i++) {
+
+  if (movements.length >= 10) {
+    movReq = 10;
+  } else {
+    movReq = movements.length;
+  }
+  for (let i = 0; i < movReq; i++) {
     const movement = movements[i];
 
     newDiv = document.createElement("DIV");

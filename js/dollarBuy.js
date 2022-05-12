@@ -59,15 +59,7 @@ const buyDollarsValidations = (pesosAmount, dollarAmount) => {
   }
   return pesosAmount, dollarAmount;
 };
-/*-------------------------------------------------------------------- */
-/* Crea alerta en el DOM */
-const alertExchange = (msg) => {
-  const myAlert = document.getElementById("alert_exchange");
-  myAlert.innerHTML = "";
-  const myMsg = document.createElement("H4");
-  myMsg.innerHTML = msg;
-  myAlert.appendChild(myMsg);
-};
+
 /*-------------------------------------------------------------------- */
 /* Calculos según moneda elegida */
 const calculateAmount = (amount, currencyType) => {
@@ -88,17 +80,6 @@ const calculatePesosAmount = (amount) => {
   return (dollarAmount =
     pesosAmount /
     (impuestoGanancias + impuestoPais + officialDollarPrice.sell));
-};
-/*-------------------------------------------------------------------- */
-/* Valida dinero en cuenta pesos */
-const checkPesosAccountMoney = (amountReq) => {
-  return parseFloat(amountReq) <=
-    parseFloat(localStorage.getItem("dinero en cuenta pesos"))
-    ? true
-    : false;
-};
-const minAmount = (dollarAmount) => {
-  return dollarAmount > 0 ? true : false;
 };
 
 /*-------------------------------------------------------------------- */
@@ -202,61 +183,3 @@ const filterMonth = (date) => {
   modifiedDate = originalDate.shift();
   return originalDate.join("/");
 };
-/*-------------------------------------------------------------------- */
-let movements = [];
-class Movement {
-  constructor(date, dollar, pesos, balancePesosAccount, balanceDollarAccount) {
-    this.date = date;
-    this.dollar = dollar;
-    this.pesos = pesos;
-    this.balancePesosAccount = balancePesosAccount;
-    this.balanceDollarAccount = balanceDollarAccount;
-  }
-}
-/*-------------------------------------------------------------------- */
-/* Crea movimientos en el LocalStorage */
-const debitCreditCurrencys = (pesos, dollar) => {
-  pesos = parseFloat(pesos);
-  dollar = parseFloat(dollar);
-
-  localStorage.setItem(
-    "dinero en cuenta pesos",
-    ($pesosAccount.value =
-      parseFloat(localStorage.getItem("dinero en cuenta pesos") / 10) * 10 +
-      parseFloat(pesos / 10) * 10)
-  );
-
-  movement = new Movement(
-    new Date().toLocaleDateString(),
-    dollar,
-    pesos,
-    parseFloat($pesosAccount.value),
-    parseFloat($dollarAccount.value) + dollar
-  );
-
-  movements.push(movement);
-
-  localStorage.setItem(
-    "dinero en cuenta dolares",
-    ($dollarAccount.value = setInitialValue(dollar))
-  );
-  localStorage.setItem("Movimientos en cuenta", JSON.stringify(movements));
-};
-
-const setInitialValue = (amountReq) => {
-  let valueStorage = localStorage.getItem("dinero en cuenta dolares");
-  valueStorage = JSON.parse(valueStorage);
-  initialValue = valueStorage + amountReq;
-  return initialValue;
-};
-
-const saveStorageMovements = () => {
-  if (localStorage.getItem("Movimientos en cuenta")) {
-    let movementsRefresh = JSON.parse(
-      localStorage.getItem("Movimientos en cuenta")
-    );
-    movements.push(...movementsRefresh);
-  }
-};
-saveStorageMovements();
-/*-------------------------------------------------------------------- */

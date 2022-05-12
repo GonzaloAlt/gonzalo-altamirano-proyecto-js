@@ -1,7 +1,7 @@
 //Tasas de interés hardcodeadas, no encuentro API para tomar datos.
 
 const rates = [
-  { days: 30, onlineRate: 34 },
+  { days: 30, onlineRate: 36 },
   { days: 60, onlineRate: 37 },
   { days: 90, onlineRate: 37 },
   { days: 180, onlineRate: 37 },
@@ -13,13 +13,24 @@ let DateTime = luxon.DateTime;
 let fixedTerms = [];
 
 class FixedTerm {
-  constructor(pesos, days, interest, rate, constitutionDate, expirationDate) {
+  constructor(
+    pesos,
+    days,
+    interest,
+    rate,
+    constitutionDate,
+    expirationDate,
+    constitutionDateISO,
+    expirationDateISO
+  ) {
     this.pesos = pesos;
     this.days = days;
     this.interest = interest;
     this.rate = rate;
     this.constitutionDate = constitutionDate;
     this.expirationDate = expirationDate;
+    this.constitutionDateISO = constitutionDateISO;
+    this.expirationDateISO = expirationDateISO;
   }
 }
 /*-------------------------------------------------------------------- */
@@ -123,7 +134,9 @@ const generateFixedTermMove = (pesos, days, interest, rate) => {
     interest,
     rate,
     today.setLocale("arg").toLocaleString(),
-    newday.setLocale("arg").toLocaleString()
+    newday.setLocale("arg").toLocaleString(),
+    today.toISO(),
+    newday.toISO()
   );
 
   fixedTerms.push(fixedTerm);
@@ -143,12 +156,10 @@ saveStorageFixedTerms();
 /* Matchea día de expiración de cada plazo fijo con el día actual */
 const matchExpDate = () => {
   let movStorage = JSON.parse(localStorage.getItem("plazos fijos conformados"));
-  let today = DateTime.local();
-
-  today = today.setLocale("arg").toLocaleString();
+  let today = DateTime.local().toISO();
 
   movStorage.map((mov, index) => {
-    if (today === mov.expirationDate) return depositTerm(mov, index);
+    if (today >= mov.expirationDateISO) return depositTerm(mov, index);
   });
 };
 /* Deposita el monto total del plazo fijo */
@@ -254,7 +265,7 @@ $seeFixedTermsBtn.addEventListener("click", () => {
 let $movementBox = document.getElementById("see_fixedTerms__box");
 const seeMovements = () => {
   let movements = JSON.parse(localStorage.getItem("plazos fijos conformados"));
-  for (let i = 0; i <= movements.length; i++) {
+  for (let i = 0; i < movements.length; i++) {
     const movement = movements[i];
 
     newDiv = document.createElement("DIV");
