@@ -18,6 +18,14 @@ context("Home simulador Banco", () => {
   });
   beforeEach(() => {
     cy.restoreLocalStorage();
+
+    ["dolaroficial", "dolarBlue", "contadoliqui", "dolarbolsa"].forEach(
+      (dollar) => {
+        cy.intercept("GET", `https://apiarg.herokuapp.com/api/${dollar}`, {
+          fixture: "mock.json",
+        }).as(`get${dollar}data`);
+      }
+    );
   });
 
   afterEach(() => {
@@ -55,6 +63,14 @@ context("Home simulador Banco", () => {
 context("Compra U$S simulador banco", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
+
+    ["dolaroficial", "dolarBlue", "contadoliqui", "dolarbolsa"].forEach(
+      (dollar) => {
+        cy.intercept("GET", `https://apiarg.herokuapp.com/api/${dollar}`, {
+          fixture: "mock.json",
+        }).as(`get${dollar}data`);
+      }
+    );
   });
 
   afterEach(() => {
@@ -133,6 +149,14 @@ context("Compra U$S simulador banco", () => {
 context("Venta U$S simulador banco", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
+
+    ["dolaroficial", "dolarBlue", "contadoliqui", "dolarbolsa"].forEach(
+      (dollar) => {
+        cy.intercept("GET", `https://apiarg.herokuapp.com/api/${dollar}`, {
+          fixture: "mock.json",
+        }).as(`get${dollar}data`);
+      }
+    );
   });
 
   afterEach(() => {
@@ -197,6 +221,14 @@ context("Venta U$S simulador banco", () => {
 context("Cotizaciones simulador banco", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
+
+    ["dolaroficial", "dolarBlue", "contadoliqui", "dolarbolsa"].forEach(
+      (dollar) => {
+        cy.intercept("GET", `https://apiarg.herokuapp.com/api/${dollar}`, {
+          fixture: "mock.json",
+        }).as(`get${dollar}data`);
+      }
+    );
   });
 
   afterEach(() => {
@@ -216,9 +248,23 @@ context("Cotizaciones simulador banco", () => {
   });
 
   it("se asegura que se rendericen las cotizaciones", () => {
+    /*Stub currencyAPI info */
+
+    cy.get("#exchange_container__options").find("input").as("prueba");
+
+    cy.get("@prueba").each(($bank) => {
+      cy.get($bank)
+        .invoke("attr", "id")
+        .then((bankId) => {
+          cy.intercept("GET", `https://apiarg.herokuapp.com/api/${bankId}`, {
+            fixture: "mock.json",
+          }).as(`get${bankId}data`);
+        });
+    });
+
     cy.get(".bank").check();
     cy.get("#search-btn").click();
-    cy.wait(5000);
+    cy.wait(3000);
     cy.get(".exchange_container__banklist_searches")
       .find("li")
       .should("have.length", BANKS_NUMBER);
@@ -296,6 +342,14 @@ context("Plazo fijo simulador banco", () => {
 context("Verifica que haya 6 movimientos", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
+
+    ["dolaroficial", "dolarBlue", "contadoliqui", "dolarbolsa"].forEach(
+      (dollar) => {
+        cy.intercept("GET", `https://apiarg.herokuapp.com/api/${dollar}`, {
+          fixture: "mock.json",
+        }).as(`get${dollar}data`);
+      }
+    );
   });
 
   afterEach(() => {
@@ -312,6 +366,14 @@ context("Verifica que haya 6 movimientos", () => {
 context("Compra dolares mes siguiente", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
+
+    ["dolaroficial", "dolarBlue", "contadoliqui", "dolarbolsa"].forEach(
+      (dollar) => {
+        cy.intercept("GET", `https://apiarg.herokuapp.com/api/${dollar}`, {
+          fixture: "mock.json",
+        }).as(`get${dollar}data`);
+      }
+    );
   });
 
   afterEach(() => {

@@ -38,6 +38,7 @@ let getExchangeData = async (currency) => {
   try {
     response = await fetch(`${API}${currency}`);
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -58,6 +59,7 @@ let getSearch = async (searches) => {
       );
       return bankInfoList;
     }, Promise.resolve([]));
+    console.log(bankInfoList);
     return bankInfoList;
   } catch (error) {
     console.log(error);
@@ -69,14 +71,17 @@ en el que se quiere appendear los resultados */
 let renderDataDolar = async (search, selectorType, fatherAppend) => {
   try {
     response = getSearch(search);
+    console.log(search);
     data = await response;
-    // console.log(data);
+    console.log(data);
     const bankDiv = document.createElement("ul");
     bankDiv.className = "bank-div";
     for (const key in data) {
+      console.log(key);
       if (Object.hasOwnProperty.call(data, key)) {
         const bankCard = document.createElement("li");
         bankCard.className = "bank-card";
+        // bankCard.id = Object.keys(search[key]).toString();
         const currency = data[key];
         const bankH2 = document.createElement("H2");
         bankH2.textContent = currency.name;
